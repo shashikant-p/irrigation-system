@@ -28,6 +28,7 @@ CREATE TABLE `plot_config` (
   `start_time` time DEFAULT NULL,
   `duration` bigint(20) NOT NULL,
   `water_quantity` bigint(20) NOT NULL,
+  `active` tinyint(1) NOT NULL,
   `plot_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_pcid_2` (`plot_config_id`),

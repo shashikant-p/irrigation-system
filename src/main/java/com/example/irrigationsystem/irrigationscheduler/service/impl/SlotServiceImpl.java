@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.irrigationsystem.common.IrrigationFrequency;
 import com.example.irrigationsystem.common.IrrigationStatus;
 import com.example.irrigationsystem.irrigationscheduler.model.IrrigationScheduleModel;
 import com.example.irrigationsystem.irrigationscheduler.repository.IrrigationScheduleRepository;
@@ -48,15 +49,21 @@ public class SlotServiceImpl implements SlotService {
 		Optional<List<PlotConfigModel>> value = plotConfigRepository.findById(plotConfig.getPlotConfigId());
 
 		if (value.isPresent() && !value.get().isEmpty()) {
+
+			PlotConfigModel plotConfigModel = value.get().get(0);
 			IrrigationScheduleModel irrigationScheduleModel = IrrigationScheduleModel.builder()
 					.startTime(plotConfig.getStartTime())
 					.endTime(plotConfig.getStartTime().plusMinutes(plotConfig.getDuration()))
 					.waterQuantity(plotConfig.getWaterQuantity()).irrigationStatus(IrrigationStatus.SCHEDULED).build();
 
-			irrigationScheduleModel.setPlotConfig(value.get().get(0));
-			irrigationScheduleModel.setPlot(value.get().get(0).getPlot());
+			irrigationScheduleModel.setPlotConfig(plotConfigModel);
+			irrigationScheduleModel.setPlot(plotConfigModel.getPlot());
 			irrigationScheduleRepository.save(irrigationScheduleModel);
 
+			if (plotConfigModel.getFrequency() == IrrigationFrequency.ONE_TIME) {
+				plotConfigModel.setActive(false);
+				plotConfigRepository.save(plotConfigModel);
+			}
 		}
 	}
 
@@ -71,13 +78,13 @@ public class SlotServiceImpl implements SlotService {
 			for (IrrigationScheduleModel irrigationSchedule : irrigationSchedules.get()) {
 				if (irrigationSchedule.getIrrigationStatus() == IrrigationStatus.SCHEDULED) {
 					irrigationSchedule.setIrrigationStatus(IrrigationStatus.PROCESSING);
-					irrigationScheduleRepository.save(irrigationSchedule);
+					IrrigationScheduleModel updatedIrrigationSchedule = irrigationScheduleRepository
+							.save(irrigationSchedule);
 
 					try {
-						sensorRetriableService.startIrrigation(irrigationSchedule);
+						sensorRetriableService.startIrrigation(updatedIrrigationSchedule);
 					} catch (SensorException e) {
 						logger.error("Sensor error occured", e);
-						;
 					}
 				}
 			}

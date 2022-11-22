@@ -27,7 +27,9 @@ public class PlotServiceImpl implements PlotService {
 		Optional<PlotModel> value = plotRepository.findByPlotId(plotId);
 
 		if (value.isPresent()) {
-			return plotObjectMapper.plotModelToPlot(value.get());
+			Plot plot = plotObjectMapper.plotModelToPlot(value.get());
+			plot.setConfigs(plotObjectMapper.plotConfigModelsToPlotConfigs(value.get().getConfigs()));
+			return plot;
 		} else {
 			throw new ResourceNotFoundException();
 		}

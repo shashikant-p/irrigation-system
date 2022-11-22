@@ -45,6 +45,9 @@ public class PlotConfigModel extends AuditableModel {
 	@Column(name = "crop", length = 50)
 	private String crop;
 
+	@Column(name = "active")
+	private Boolean active = true;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "plot_id", nullable = false)
 	PlotModel plot;

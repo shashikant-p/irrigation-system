@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -44,9 +45,9 @@ public class IrrigationScheduleModel extends AuditableModel {
 	@Enumerated(EnumType.STRING)
 	private IrrigationStatus irrigationStatus;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	PlotModel plot;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	PlotConfigModel plotConfig;
 }

@@ -17,7 +17,7 @@ public interface PlotConfigRepository extends JpaRepository<PlotConfigModel, Lon
 	@Query("select pe from PlotConfigModel pe where pe.plotConfigId = ?1")
 	Optional<List<PlotConfigModel>> findById(String plotConfigId);
 
-	@Query("select pe from PlotConfigModel pe where pe.startTime between ?1 and ?2")
+	@Query("select pe from PlotConfigModel pe where pe.startTime between ?1 and ?2 and pe.active = true")
 	Optional<List<PlotConfigModel>> findBetweenStartTimes(LocalTime beginTime, LocalTime endTime);
 
 }

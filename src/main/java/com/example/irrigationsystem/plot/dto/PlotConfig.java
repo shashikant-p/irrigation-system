@@ -2,7 +2,6 @@ package com.example.irrigationsystem.plot.dto;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -31,5 +30,7 @@ public class PlotConfig implements Serializable {
 	private Integer waterQuantity;
 
 	private IrrigationFrequency frequency;
-	
+
+	private Boolean active;
+
 }

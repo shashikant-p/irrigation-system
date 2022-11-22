@@ -16,6 +16,7 @@ public interface PlotObjectMapper {
 
 	List<Plot> plotModelsToPlots(List<PlotModel> plotModels);
 
+	@Mapping(target = "configs", ignore = true)
 	Plot plotModelToPlot(PlotModel plotModel);
 
 	@Mapping(target = "createdDate", ignore = true)
@@ -40,6 +41,7 @@ public interface PlotObjectMapper {
 	@Mapping(target = "modifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "plot", ignore = true)
+	@Mapping(target = "active", ignore = true)
 	PlotConfigModel plotConfigToPlotConfigModel(PlotConfig plotConfig);
 
 	@Mapping(target = "createdDate", ignore = true)

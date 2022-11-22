@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,6 +30,7 @@ public class Plot implements Serializable {
 
 	@NotEmpty
 	private String area;
-	
+
+	@JsonInclude(Include.NON_NULL)
 	private List<PlotConfig> configs;
 }
