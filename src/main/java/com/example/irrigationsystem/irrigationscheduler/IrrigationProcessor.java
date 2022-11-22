@@ -21,8 +21,7 @@ public class IrrigationProcessor {
 	@Scheduled(fixedRateString = "${irrigation.processor.frequency}")
 
 	public void scheduleSensorforIrrigation() {
-		LocalTime endTime = LocalTime.now();
-		LocalTime startTime = endTime.minusSeconds(irrigationProcessorFrequency / 1000);
-		slotService.initiateIrrigation(startTime, endTime);
+		LocalTime scheduledTime = LocalTime.now();
+		slotService.initiateIrrigation(scheduledTime);
 	}
 }

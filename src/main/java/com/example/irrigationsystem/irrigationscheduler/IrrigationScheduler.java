@@ -26,7 +26,6 @@ public class IrrigationScheduler {
 		LocalTime startTime = endTime.minusSeconds(irrigationSchedulerFrequency / 1000);
 		List<PlotConfig> plotConfigs = slotService.getScheduledPlotConfigs(startTime, endTime);
 
-		System.out.println(plotConfigs.size());
 		for (PlotConfig currConfig : plotConfigs) {
 			slotService.addIrrigationSchedule(currConfig);
 		}

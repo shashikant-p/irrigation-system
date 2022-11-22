@@ -8,12 +8,12 @@ import com.example.irrigationsystem.plot.dto.Plot;
 import com.example.irrigationsystem.sensor.Sensor;
 import com.example.irrigationsystem.sensor.SensorException;
 
-@Component
+@Component("mockSensor")
 public class MockSensorImpl implements Sensor {
 
 	@Override
 	public void startIrrigation(Plot plot, LocalTime endTime, Integer waterQuantity) throws SensorException {
-
+		System.out.println("Sensor called");
 	}
 
 }

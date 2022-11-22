@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.irrigationsystem.common.IrrigationStatus;
@@ -34,6 +35,7 @@ public class SlotService {
 	IrrigationScheduleRepository irrigationScheduleRepository;
 
 	@Autowired
+	@Qualifier("mockSensor")
 	Sensor sensor;
 
 	public List<PlotConfig> getScheduledPlotConfigs(LocalTime startTime, LocalTime endTime) {
@@ -57,14 +59,21 @@ public class SlotService {
 		}
 	}
 
-	public void initiateIrrigation(LocalTime startTime, LocalTime endTime) {
+	public void initiateIrrigation(LocalTime endTime) {
+
+		System.out.println("Irrigation Initiation called");
 
 		Optional<List<IrrigationScheduleModel>> irrigationSchedules = irrigationScheduleRepository
-				.findBetweenStartTimes(startTime, endTime);
+				.findBetweenStartTimes(endTime, IrrigationStatus.SCHEDULED);
 
 		if (irrigationSchedules.isPresent() && !irrigationSchedules.get().isEmpty()) {
+			System.out.println("Schedules Present : " + irrigationSchedules.get().size());
+
 			for (IrrigationScheduleModel irrigationSchedule : irrigationSchedules.get()) {
 				if (irrigationSchedule.getIrrigationStatus() == IrrigationStatus.SCHEDULED) {
+					System.out.println("Scheduled Task Found");
+					irrigationSchedule.setIrrigationStatus(IrrigationStatus.PROCESSING);
+					irrigationScheduleRepository.save(irrigationSchedule);
 					try {
 						sensor.startIrrigation(plotObjectMapper.plotModelToPlot(irrigationSchedule.getPlot()),
 								irrigationSchedule.getEndTime(), irrigationSchedule.getWaterQuantity());

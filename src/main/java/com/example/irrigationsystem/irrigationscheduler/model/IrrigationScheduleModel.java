@@ -14,8 +14,10 @@ import com.example.irrigationsystem.common.IrrigationStatus;
 import com.example.irrigationsystem.plot.model.PlotConfigModel;
 import com.example.irrigationsystem.plot.model.PlotModel;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -23,6 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IrrigationScheduleModel extends AuditableModel {
 
 	private static final long serialVersionUID = 1L;
