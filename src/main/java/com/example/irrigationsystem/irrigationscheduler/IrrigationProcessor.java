@@ -12,14 +12,10 @@ import com.example.irrigationsystem.irrigationscheduler.service.SlotService;
 @Component
 public class IrrigationProcessor {
 
-	@Value("${irrigation.processor.frequency}")
-	private Long irrigationProcessorFrequency;
-
 	@Autowired
 	SlotService slotService;
 
 	@Scheduled(fixedRateString = "${irrigation.processor.frequency}")
-
 	public void scheduleSensorforIrrigation() {
 		LocalTime scheduledTime = LocalTime.now();
 		slotService.initiateIrrigation(scheduledTime);
