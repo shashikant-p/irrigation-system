@@ -16,4 +16,16 @@ public class ResponseObject {
 
 	@JsonInclude(Include.NON_NULL)
 	private Object data;
+
+	@Builder
+	public static class ErrorEntry {
+
+		@Getter
+		@Setter
+		private String code;
+
+		@Getter
+		@Setter
+		private String message;
+	}
 }

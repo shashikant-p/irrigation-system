@@ -1,4 +1,4 @@
-package com.example.irrigationsystem.plot.service;
+package com.example.irrigationsystem.plot.service.impl;
 
 import java.util.List;
 
