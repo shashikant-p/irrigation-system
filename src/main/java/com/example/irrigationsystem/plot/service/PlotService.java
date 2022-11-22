@@ -14,14 +14,14 @@ import com.example.irrigationsystem.plot.repository.PlotRepository;
 
 @Service
 public class PlotService {
-	
+
 	@Autowired
 	PlotRepository plotRepository;
-	
+
 	@Autowired
 	PlotObjectMapper plotObjectMapper;
-	
-	public Plot getPlot(String plotId) throws ResourceNotFoundException  {
+
+	public Plot getPlot(String plotId) throws ResourceNotFoundException {
 		Optional<PlotModel> value = plotRepository.findByPlotId(plotId);
 
 		if (value.isPresent()) {
@@ -30,14 +30,14 @@ public class PlotService {
 			throw new ResourceNotFoundException();
 		}
 	}
-	
+
 	public Plot addPlot(Plot plot) {
 		PlotModel plotModel = plotObjectMapper.plotToPlotModel(plot);
 		plotModel.setPlotId(UUID.randomUUID().toString());
 		plotModel = plotRepository.save(plotModel);
 		return plotObjectMapper.plotModelToPlot(plotModel);
 	}
-	
+
 	public Plot updatePlot(String plotId, Plot plot) throws ResourceNotFoundException {
 		Optional<PlotModel> plotModel = plotRepository.findByPlotId(plotId);
 
@@ -49,7 +49,7 @@ public class PlotService {
 			throw new ResourceNotFoundException();
 		}
 	}
-	
+
 	public List<Plot> getPlots() {
 		List<PlotModel> value = plotRepository.findAll();
 		return plotObjectMapper.plotModelsToPlots(value);

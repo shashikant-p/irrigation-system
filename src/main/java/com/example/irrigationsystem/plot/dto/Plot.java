@@ -12,18 +12,18 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Plot implements Serializable {
-	
+
 	private String plotId;
-	
+
 	@NotEmpty
 	private String address;
-	
+
 	@NotEmpty
 	private String city;
-	
+
 	@NotEmpty
 	private String province;
-	
+
 	@NotEmpty
 	private String area;
 }

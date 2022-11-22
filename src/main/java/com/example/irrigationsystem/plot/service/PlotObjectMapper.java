@@ -15,38 +15,36 @@ import com.example.irrigationsystem.plot.model.PlotModel;
 public interface PlotObjectMapper {
 
 	List<Plot> plotModelsToPlots(List<PlotModel> plotModels);
-	
+
 	Plot plotModelToPlot(PlotModel plotModel);
-	
+
 	@Mapping(target = "createdDate", ignore = true)
 	@Mapping(target = "modifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "configs", ignore = true)
 	@Mapping(target = "plotId", ignore = true)
 	PlotModel plotToPlotModel(Plot plot);
-	
+
 	@Mapping(target = "createdDate", ignore = true)
 	@Mapping(target = "modifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "configs", ignore = true)
 	@Mapping(target = "plotId", ignore = true)
-	void updatePlotToPlotModel(Plot plot,
-			@MappingTarget PlotModel plotModel);
-	
+	void updatePlotToPlotModel(Plot plot, @MappingTarget PlotModel plotModel);
+
 	List<PlotConfig> plotConfigModelsToPlotConfigs(List<PlotConfigModel> plotModels);
-	
+
 	PlotConfig plotConfigModelToPlotConfig(PlotConfigModel plotConfigModel);
-	
+
 	@Mapping(target = "createdDate", ignore = true)
 	@Mapping(target = "modifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "plot", ignore = true)
 	PlotConfigModel plotConfigToPlotConfigModel(PlotConfig plotConfig);
-	
+
 	@Mapping(target = "createdDate", ignore = true)
 	@Mapping(target = "modifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "plot", ignore = true)
-	void updatePlotConfigToPlotConfigModel(PlotConfig plotConfig,
-			@MappingTarget PlotConfigModel plotConfigModel);
+	void updatePlotConfigToPlotConfigModel(PlotConfig plotConfig, @MappingTarget PlotConfigModel plotConfigModel);
 }

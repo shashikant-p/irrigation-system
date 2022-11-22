@@ -22,24 +22,24 @@ import lombok.ToString;
 @Getter
 @Setter
 public class PlotModel extends AuditableModel {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "plotId", length = 36, nullable = false, unique = true)
 	private String plotId;
-	
+
 	@Column(name = "address", nullable = false)
 	private String address;
-	
+
 	@Column(name = "city", nullable = false)
 	private String city;
-	
+
 	@Column(name = "province", nullable = false)
 	private String province;
-	
+
 	@Column(name = "area", precision = 10, scale = 2, nullable = false)
 	private BigDecimal area;
-	
+
 	@OneToMany(mappedBy = "plot", cascade = { CascadeType.REMOVE })
 	List<PlotConfigModel> configs;
 }

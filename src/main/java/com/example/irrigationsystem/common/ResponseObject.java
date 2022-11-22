@@ -13,7 +13,7 @@ import lombok.Setter;
 public class ResponseObject {
 	private ResponseStatus status;
 	private String message;
-	
+
 	@JsonInclude(Include.NON_NULL)
 	private Object data;
 }

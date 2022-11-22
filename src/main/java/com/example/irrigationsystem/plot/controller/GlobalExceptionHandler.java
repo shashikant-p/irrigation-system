@@ -15,8 +15,10 @@ import com.example.irrigationsystem.common.ResponseStatus;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { ResourceNotFoundException.class })
+	@ExceptionHandler(value = { ResourceNotFoundException.class })
 	protected ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-		return handleExceptionInternal(ex, ResponseObject.builder().status(ResponseStatus.FAILURE).message("Resource not found").build(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+		return handleExceptionInternal(ex,
+				ResponseObject.builder().status(ResponseStatus.FAILURE).message("Resource not found").build(),
+				new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 }

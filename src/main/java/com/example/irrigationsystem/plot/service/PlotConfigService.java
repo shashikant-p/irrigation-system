@@ -1,5 +1,7 @@
 package com.example.irrigationsystem.plot.service;
 
+import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,16 +18,16 @@ import com.example.irrigationsystem.plot.repository.PlotRepository;
 
 @Service
 public class PlotConfigService {
-	
+
 	@Autowired
 	PlotConfigRepository plotConfigRepository;
-	
+
 	@Autowired
 	PlotRepository plotRepository;
-	
+
 	@Autowired
 	PlotObjectMapper plotObjectMapper;
-	
+
 	public List<PlotConfig> getPlotConfigs(String plotId) {
 		Optional<List<PlotConfigModel>> value = plotConfigRepository.findByPlotId(plotId);
 
@@ -35,17 +37,17 @@ public class PlotConfigService {
 			throw new ResourceNotFoundException();
 		}
 	}
-	
+
 	public PlotConfig getPlotConfig(String plotConfigId) {
 		Optional<List<PlotConfigModel>> value = plotConfigRepository.findById(plotConfigId);
 
-		if (value.isPresent()) {
+		if (value.isPresent() && !value.get().isEmpty()) {
 			return plotObjectMapper.plotConfigModelToPlotConfig(value.get().get(0));
 		} else {
 			throw new ResourceNotFoundException();
 		}
 	}
-	
+
 	public PlotConfig addPlotConfig(String plotId, PlotConfig plotConfig) {
 		Optional<PlotModel> value = plotRepository.findByPlotId(plotId);
 
@@ -54,10 +56,10 @@ public class PlotConfigService {
 			PlotConfigModel plotConfigModel = plotObjectMapper.plotConfigToPlotConfigModel(plotConfig);
 			plotConfigModel.setPlotConfigId(UUID.randomUUID().toString());
 			plot.getConfigs().add(plotConfigModel);
-			
+
 			System.out.println(plot.getConfigs());
 			System.out.println(plotConfigModel);
-			
+
 			plotConfigModel.setPlot(plot);
 			plotConfigModel = plotConfigRepository.save(plotConfigModel);
 			return plotObjectMapper.plotConfigModelToPlotConfig(plotConfigModel);
@@ -65,17 +67,27 @@ public class PlotConfigService {
 			throw new ResourceNotFoundException();
 		}
 	}
-	
+
 	public PlotConfig updatePlotConfig(String plotConfigId, PlotConfig plot) {
 		Optional<List<PlotConfigModel>> plotModel = plotConfigRepository.findById(plotConfigId);
 
-		if (plotModel.isPresent()) {
+		if (plotModel.isPresent() && !plotModel.get().isEmpty()) {
 			PlotConfigModel plotConfigModel = plotModel.get().get(0);
 			plotObjectMapper.updatePlotConfigToPlotConfigModel(plot, plotConfigModel);
 			plotConfigModel = plotConfigRepository.save(plotConfigModel);
 			return plotObjectMapper.plotConfigModelToPlotConfig(plotConfigModel);
 		} else {
 			throw new ResourceNotFoundException();
+		}
+	}
+
+	public List<PlotConfig> getScheduledPlotConfigs(LocalTime startTime, LocalTime endTime) {
+		Optional<List<PlotConfigModel>> plotConfigs = plotConfigRepository.findBetweenStartTimes(startTime, endTime);
+
+		if (plotConfigs.isPresent()) {
+			return plotObjectMapper.plotConfigModelsToPlotConfigs(plotConfigs.get());
+		} else {
+			return Collections.emptyList();
 		}
 	}
 }

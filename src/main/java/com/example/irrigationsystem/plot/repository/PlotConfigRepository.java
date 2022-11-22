@@ -1,5 +1,6 @@
 package com.example.irrigationsystem.plot.repository;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,8 @@ public interface PlotConfigRepository extends JpaRepository<PlotConfigModel, Lon
 
 	@Query("select pe from PlotConfigModel pe where pe.plotConfigId = ?1")
 	Optional<List<PlotConfigModel>> findById(String plotConfigId);
+
+	@Query("select pe from PlotConfigModel pe where pe.startTime between ?1 and ?2")
+	Optional<List<PlotConfigModel>> findBetweenStartTimes(LocalTime beginTime, LocalTime endTime);
+
 }

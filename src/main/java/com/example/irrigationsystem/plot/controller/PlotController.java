@@ -36,59 +36,66 @@ public class PlotController {
 
 	@Autowired
 	PlotConfigService plotConfigService;
-	
+
 	@GetMapping
 	public ResponseEntity<ResponseObject> getPlots() {
 		List<Plot> plots = plotService.getPlots();
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plots).build());
+		return ResponseEntity
+				.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plots).build());
 	}
 
 	@GetMapping("/{plotId}")
 	public ResponseEntity<ResponseObject> getPlot(@PathVariable(name = "plotId", required = true) String plotId) {
 		Plot plot = plotService.getPlot(plotId);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plot).build());
+		return ResponseEntity
+				.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plot).build());
 	}
 
 	@PostMapping
 	public ResponseEntity<ResponseObject> addPlot(@Valid @RequestBody Plot plot) {
 		Plot createdPlot = plotService.addPlot(plot);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
 	}
 
 	@PutMapping("/{plotId}")
 	public ResponseEntity<ResponseObject> updatePlot(@PathVariable(name = "plotId", required = true) String plotId,
 			@Valid @RequestBody Plot plot) {
 		Plot updatedPlot = plotService.updatePlot(plotId, plot);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(updatedPlot).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(updatedPlot).build());
 	}
 
-	
 	@GetMapping("/{plotId}/config")
 	public ResponseEntity<ResponseObject> getPlotConfig(@PathVariable(name = "plotId", required = true) String plotId) {
 		List<PlotConfig> plotConfigs = plotConfigService.getPlotConfigs(plotId);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfigs).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfigs).build());
 	}
-	
-	
+
 	@GetMapping("/{plotId}/config/{plotConfigId}")
 	public ResponseEntity<ResponseObject> getPlotConfig(@PathVariable(name = "plotId", required = true) String plotId,
 			@PathVariable(name = "plotConfigId", required = true) String plotConfigId) {
 		PlotConfig plotConfig = plotConfigService.getPlotConfig(plotConfigId);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfig).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfig).build());
 	}
 
 	@PostMapping("/{plotId}/config")
-	public ResponseEntity<ResponseObject> addPlotConfig(@PathVariable(name = "plotId", required = true) String plotId, 
+	public ResponseEntity<ResponseObject> addPlotConfig(@PathVariable(name = "plotId", required = true) String plotId,
 			@Valid @RequestBody PlotConfig plotConfig) {
 		PlotConfig createdPlot = plotConfigService.addPlotConfig(plotId, plotConfig);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
 	}
 
 	@PutMapping("/{plotId}/config/{plotConfigId}")
-	public ResponseEntity<ResponseObject> updatePlotConfig(@PathVariable(name = "plotId", required = true) String plotId,
+	public ResponseEntity<ResponseObject> updatePlotConfig(
+			@PathVariable(name = "plotId", required = true) String plotId,
 			@PathVariable(name = "plotConfigId", required = true) String plotConfigId,
 			@Valid @RequestBody PlotConfig plot) {
 		PlotConfig updatedPlot = plotConfigService.updatePlotConfig(plotConfigId, plot);
-		return ResponseEntity.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(updatedPlot).build());
+		return ResponseEntity.ok(
+				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(updatedPlot).build());
 	}
 }
