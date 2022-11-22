@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.example.irrigationsystem.common.IrrigationStatus;
 import com.example.irrigationsystem.irrigationscheduler.model.IrrigationScheduleModel;
 import com.example.irrigationsystem.irrigationscheduler.repository.IrrigationScheduleRepository;
+import com.example.irrigationsystem.notifications.Notification;
+import com.example.irrigationsystem.notifications.NotificationProvider;
 import com.example.irrigationsystem.plot.dto.PlotConfig;
 import com.example.irrigationsystem.plot.model.PlotConfigModel;
 import com.example.irrigationsystem.plot.repository.PlotConfigRepository;
@@ -37,6 +39,10 @@ public class SlotService {
 	@Autowired
 	@Qualifier("mockSensor")
 	Sensor sensor;
+
+	@Autowired
+	@Qualifier("consoleNotifier")
+	NotificationProvider notificationProvider;
 
 	public List<PlotConfig> getScheduledPlotConfigs(LocalTime startTime, LocalTime endTime) {
 		return plotConfigService.getScheduledPlotConfigs(startTime, endTime);
@@ -80,6 +86,14 @@ public class SlotService {
 						irrigationSchedule.setIrrigationStatus(IrrigationStatus.SUBMITTED);
 					} catch (SensorException e) {
 						irrigationSchedule.setIrrigationStatus(IrrigationStatus.ERROR);
+
+						Notification notification = Notification.builder().title("!Important - Irrigation Failure")
+								.subject("Failed to Irrigate plot " + irrigationSchedule.getPlot().getPlotId())
+								.message("Failure occured for the plot " + irrigationSchedule.getPlot().getPlotId()
+										+ " scheduled at " + irrigationSchedule.getStartTime())
+								.build();
+
+						notificationProvider.sendNotification(notification);
 					}
 					irrigationScheduleRepository.save(irrigationSchedule);
 				}

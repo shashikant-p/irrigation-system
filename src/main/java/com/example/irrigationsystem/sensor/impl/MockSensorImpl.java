@@ -13,7 +13,6 @@ public class MockSensorImpl implements Sensor {
 
 	@Override
 	public void startIrrigation(Plot plot, LocalTime endTime, Integer waterQuantity) throws SensorException {
-		System.out.println("Sensor called");
+		System.out.println("=== Sensor called ===");
 	}
-
 }
