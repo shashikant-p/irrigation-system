@@ -37,3 +37,4 @@ This is sample implementation of an Automated Irrigation System writteen in Java
 
  - Once the applcation is executing, the Swagger API docs will be accessible at - http://localhost:8080/swagger-ui/index.html
  - Flyway is configured to create the database tables and insert a few plot data.
+ - Code Quality can be found [here](https://app.codacy.com/gh/shashikant-p/irrigation-system/issues)
