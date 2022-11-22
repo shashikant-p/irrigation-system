@@ -1,6 +1,7 @@
 package com.example.irrigationsystem.plot.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -26,4 +27,6 @@ public class Plot implements Serializable {
 
 	@NotEmpty
 	private String area;
+	
+	private List<PlotConfig> configs;
 }
