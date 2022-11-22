@@ -19,14 +19,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "plot_config", indexes = @Index(columnList = "product_config_id", unique = true))
+@Table(name = "plot_config", indexes = @Index(columnList = "plot_config_id", unique = true))
 @Getter
 @Setter
 public class PlotConfigModel extends AuditableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "product_config_id", length = 36, nullable = false, unique = true)
+	@Column(name = "plot_config_id", length = 36, nullable = false, unique = true)
 	private String plotConfigId;
 
 	@Column(name = "start_time", columnDefinition = "TIME")
