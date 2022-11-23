@@ -24,6 +24,8 @@ import com.example.irrigationsystem.plot.dto.PlotConfig;
 import com.example.irrigationsystem.plot.service.PlotConfigService;
 import com.example.irrigationsystem.plot.service.PlotService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/plot")
@@ -37,6 +39,7 @@ public class PlotController {
 	@Autowired
 	PlotConfigService plotConfigService;
 
+	@Operation(summary = "Get all plots", description = "Returns a a list of all the plots in the system")
 	@GetMapping
 	public ResponseEntity<ResponseObject> getPlots() {
 
@@ -47,6 +50,7 @@ public class PlotController {
 				.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plots).build());
 	}
 
+	@Operation(summary = "Get plot details", description = "Fetches the properties for the given plotId")
 	@GetMapping("/{plotId}")
 	public ResponseEntity<ResponseObject> getPlot(@PathVariable(name = "plotId", required = true) String plotId) {
 
@@ -57,6 +61,7 @@ public class PlotController {
 				.ok(ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plot).build());
 	}
 
+	@Operation(summary = "Create a plot", description = "Creates a plot with the provided properties")
 	@PostMapping
 	public ResponseEntity<ResponseObject> addPlot(@Valid @RequestBody Plot plot) {
 
@@ -67,6 +72,7 @@ public class PlotController {
 				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
 	}
 
+	@Operation(summary = "Update a plot", description = "Updates plot properties for the given plotId")
 	@PutMapping("/{plotId}")
 	public ResponseEntity<ResponseObject> updatePlot(@PathVariable(name = "plotId", required = true) String plotId,
 			@Valid @RequestBody Plot plot) {
@@ -78,6 +84,7 @@ public class PlotController {
 				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(updatedPlot).build());
 	}
 
+	@Operation(summary = "Fetches the plot configurations", description = "Gets all the plot configurations associated with a give plot. A plot may have more than one configuration")
 	@GetMapping("/{plotId}/config")
 	public ResponseEntity<ResponseObject> getPlotConfig(@PathVariable(name = "plotId", required = true) String plotId) {
 
@@ -88,6 +95,7 @@ public class PlotController {
 				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfigs).build());
 	}
 
+	@Operation(summary = "Get a plot configuration", description = "Retrieves plot configuration details for the given plotId and plotConfigurationId")
 	@GetMapping("/{plotId}/config/{plotConfigId}")
 	public ResponseEntity<ResponseObject> getPlotConfig(@PathVariable(name = "plotId", required = true) String plotId,
 			@PathVariable(name = "plotConfigId", required = true) String plotConfigId) {
@@ -99,6 +107,7 @@ public class PlotController {
 				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(plotConfig).build());
 	}
 
+	@Operation(summary = "Create a plot configuration", description = "Creates a plot configuration for a given plotId with the provided properties. A plot may have more than one configuration")
 	@PostMapping("/{plotId}/config")
 	public ResponseEntity<ResponseObject> addPlotConfig(@PathVariable(name = "plotId", required = true) String plotId,
 			@Valid @RequestBody PlotConfig plotConfig) {
@@ -110,6 +119,7 @@ public class PlotController {
 				ResponseObject.builder().status(ResponseStatus.SUCCESS).message("Success").data(createdPlot).build());
 	}
 
+	@Operation(summary = "Update a plot configuration", description = "Updates a plot with the provided properties for the given plotId and plotConfigurationId")
 	@PutMapping("/{plotId}/config/{plotConfigId}")
 	public ResponseEntity<ResponseObject> updatePlotConfig(
 			@PathVariable(name = "plotId", required = true) String plotId,
