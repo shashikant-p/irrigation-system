@@ -26,6 +26,15 @@ This is sample implementation of an Automated Irrigation System written in Java 
 
 ![er_diagram](https://user-images.githubusercontent.com/1014107/203373289-57d125fe-25cc-49e7-9d9a-b598ab8190a8.png)
 
+## Components
+
+| Name | Description |
+| ------------ | ------------ |
+| Plot | Manages the plots and plot configurations (for irrigation) |
+| Irrigation Scheduler | Schedules slots for plot irrigations based on the configurations defined on plots |
+| Sensor | A Sensor interface with a mock do nothing implementation  |
+| Notifications | Alerts and Notifications component |
+
 ## Setup
 
  - Clone the repository.
