@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.irrigationsystem.common.ResourceNotFoundException;
 import com.example.irrigationsystem.plot.dto.PlotConfig;
@@ -52,6 +53,7 @@ public class PlotConfigServiceImpl implements PlotConfigService {
 	}
 
 	@Override
+	@Transactional
 	public PlotConfig addPlotConfig(String plotId, PlotConfig plotConfig) {
 		Optional<PlotModel> value = plotRepository.findByPlotId(plotId);
 
@@ -70,6 +72,7 @@ public class PlotConfigServiceImpl implements PlotConfigService {
 	}
 
 	@Override
+	@Transactional
 	public PlotConfig updatePlotConfig(String plotConfigId, PlotConfig plot) {
 		Optional<List<PlotConfigModel>> plotModel = plotConfigRepository.findById(plotConfigId);
 
