@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.irrigationsystem.common.IrrigationFrequency;
 import com.example.irrigationsystem.common.IrrigationStatus;
@@ -44,6 +45,7 @@ public class SlotServiceImpl implements SlotService {
 	}
 
 	@Override
+	@Transactional
 	public void addIrrigationSchedule(PlotConfig plotConfig) {
 
 		Optional<List<PlotConfigModel>> value = plotConfigRepository.findById(plotConfig.getPlotConfigId());
@@ -68,6 +70,7 @@ public class SlotServiceImpl implements SlotService {
 	}
 
 	@Override
+	@Transactional
 	public void initiateIrrigation(LocalTime endTime) {
 
 		Optional<List<IrrigationScheduleModel>> irrigationSchedules = irrigationScheduleRepository

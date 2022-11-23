@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.irrigationsystem.common.ResourceNotFoundException;
 import com.example.irrigationsystem.plot.dto.Plot;
@@ -44,6 +45,7 @@ public class PlotServiceImpl implements PlotService {
 	}
 
 	@Override
+	@Transactional
 	public Plot updatePlot(String plotId, Plot plot) throws ResourceNotFoundException {
 		Optional<PlotModel> plotModel = plotRepository.findByPlotId(plotId);
 

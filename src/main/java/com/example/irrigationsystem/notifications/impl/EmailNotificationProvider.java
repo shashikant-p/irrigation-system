@@ -9,18 +9,20 @@ import com.example.irrigationsystem.notifications.NotificationProvider;
 
 /**
  * 
- * This is class which logs notifications and alerts to log file.
+ * This is a placeholder/stub class for email notifications.
  *
  */
-@Service("consoleNotifier")
-public class ConsoleNotificationProvider implements NotificationProvider {
+@Service("emailNotifier")
+public class EmailNotificationProvider implements NotificationProvider {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConsoleNotificationProvider.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmailNotificationProvider.class);
 
 	@Override
 	public void sendNotification(Notification notification) {
 		logger.info("=== Notification Received ===");
 		logger.info(notification.toString());
+
+		// Logic for sending email to be implemented here
 	}
 
 }
